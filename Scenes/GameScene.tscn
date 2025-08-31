@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ol71vaiekpod"]
+[gd_scene load_steps=5 format=3 uid="uid://ol71vaiekpod"]
 
 [ext_resource type="Texture2D" uid="uid://7rye2xx8dwjv" path="res://Textures/Lander.png" id="1_2wl7v"]
+[ext_resource type="Script" uid="uid://bf5ofxn2ktd52" path="res://Scripts/Lander.gd" id="1_4bvgx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bvgx"]
 size = Vector2(115, 180)
@@ -11,7 +12,14 @@ size = Vector2(1920, 64)
 [node name="GameScene" type="Node2D"]
 
 [node name="Lander" type="RigidBody2D" parent="."]
+physics_interpolation_mode = 1
 position = Vector2(960, 540)
+gravity_scale = 0.7
+linear_damp_mode = 1
+linear_damp = 1.0
+angular_damp_mode = 1
+angular_damp = 5.0
+script = ExtResource("1_4bvgx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Lander"]
 scale = Vector2(0.5, 0.5)
