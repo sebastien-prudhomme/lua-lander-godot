@@ -1,14 +1,23 @@
-[gd_scene load_steps=28 format=4 uid="uid://ol71vaiekpod"]
+[gd_scene load_steps=32 format=4 uid="uid://ol71vaiekpod"]
 
 [ext_resource type="Texture2D" uid="uid://7rye2xx8dwjv" path="res://Textures/Lander.png" id="1_2wl7v"]
 [ext_resource type="Script" uid="uid://bf5ofxn2ktd52" path="res://Scripts/Lander.gd" id="1_4bvgx"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_xhjei"]
 [ext_resource type="Script" uid="uid://dhdc4b8yddyej" path="res://addons/rmsmartshape/shapes/shape.gd" id="3_x6js8"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_cr6v8"]
 [ext_resource type="Script" uid="uid://bwcf4pjgprn0k" path="res://addons/rmsmartshape/shapes/point.gd" id="4_lg2j6"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_f43ej"]
 [ext_resource type="Script" uid="uid://bo5f7qe27jfje" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_y30xb"]
 [ext_resource type="Script" uid="uid://llobjh5hvry" path="res://addons/rmsmartshape/shapes/mesh.gd" id="6_lg2j6"]
 [ext_resource type="Script" uid="uid://0lhxan4cqrc1" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="6_xhjei"]
 [ext_resource type="Script" uid="uid://nc5bfedvnpgm" path="res://addons/rmsmartshape/materials/shape_material.gd" id="7_6vvcf"]
 [ext_resource type="Texture2D" uid="uid://gxwsoeo5xo1u" path="res://Textures/RockBackground.png" id="7_y30xb"]
+
+[sub_resource type="Resource" id="Resource_4v654"]
+script = ExtResource("5_f43ej")
+duration = 1.0
+transition = 0
+ease = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bvgx"]
 size = Vector2(58, 91)
@@ -194,6 +203,27 @@ fill_mesh_offset = 0.0
 render_offset = 0.0
 
 [node name="GameScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(960, 540)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_xhjei")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(960, 540)
+script = ExtResource("4_cr6v8")
+follow_mode = 5
+follow_target = NodePath("../Lander")
+tween_resource = SubResource("Resource_4v654")
+dead_zone_width = 0.2
+dead_zone_height = 0.2
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Lander" type="RigidBody2D" parent="."]
 physics_interpolation_mode = 1
