@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 const FORCE: float = 2000
-const TORQUE: float = 20000
+const TORQUE: float = 10000
 
 func _physics_process(_delta: float):
 	if Input.is_action_pressed("lander_left"):
